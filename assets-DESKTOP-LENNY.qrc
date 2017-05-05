@@ -1,0 +1,52 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/CAR SETTINGS/amgModeIcon.png</file>
+        <file>assets/CAR SETTINGS/carsettingsIcon.png</file>
+        <file>assets/CAR SETTINGS/DISPLAYsETTINGSiCON.png</file>
+        <file>assets/CAR SETTINGS/drivetrainIcon.png</file>
+        <file>assets/CAR SETTINGS/equalizerIcon.png</file>
+        <file>assets/CAR SETTINGS/expandDesktopIcon.png</file>
+        <file>assets/CAR SETTINGS/wifiIcon.png</file>
+        <file>assets/autonomousButton.png</file>
+        <file>assets/backButton.png</file>
+        <file>assets/background.png</file>
+        <file>assets/favoritesIcon.png</file>
+        <file>assets/homeButton.png</file>
+        <file>assets/infoIcon.png</file>
+        <file>assets/menuBarSeparator.png</file>
+        <file>assets/smartphoneIcon.png</file>
+        <file>assets/wisherScreens.png</file>
+        <file>assets/CONNECTIVITY/bankingIcon.png</file>
+        <file>assets/CONNECTIVITY/cloudIcon.png</file>
+        <file>assets/CONNECTIVITY/ConnectivityIcon.png</file>
+        <file>assets/CONNECTIVITY/homeAssistantIcon.png</file>
+        <file>assets/CONNECTIVITY/shoppingIcon.png</file>
+        <file>assets/CONNECTIVITY/socialMediaIcon.png</file>
+        <file>assets/CONNECTIVITY/SOCIALrEVIEWiCON.png</file>
+        <file>assets/CONNECTIVITY/vrIcon.png</file>
+        <file>assets/CONNECTIVITY/waetheriCON.png</file>
+        <file>assets/CONNECTIVITY/wearablesIcon.png</file>
+        <file>assets/INTERNET/internetIcon.png</file>
+        <file>assets/MUSIC/equalizerIcon.png</file>
+        <file>assets/MUSIC/internetRadioIcon.png</file>
+        <file>assets/MUSIC/musicIcon.png</file>
+        <file>assets/MUSIC/radioIcon.png</file>
+        <file>assets/MUSIC/spotifyIcon.png</file>
+        <file>assets/NAVIGATION/chargingIcon.png</file>
+        <file>assets/NAVIGATION/navigationIcon.png</file>
+        <file>assets/NAVIGATION/PARKINGiCON.png</file>
+        <file>assets/OFFICE/emailIcon.png</file>
+        <file>assets/OFFICE/msOfficeIcon.png</file>
+        <file>assets/OFFICE/officeIcon.png</file>
+        <file>assets/SHARING/foodSharingIcon.png</file>
+        <file>assets/SHARING/houseSharingIcon.png</file>
+        <file>assets/SHARING/moovelIcon.png</file>
+        <file>assets/SHARING/rideSharingIcon.png</file>
+        <file>assets/SHARING/sharedServicesIcon.png</file>
+        <file>assets/OFFICE/bankingIcon.png</file>
+        <file>assets/OFFICE/expandDesktopIcon.png</file>
+        <file>assets/OFFICE/newsIcon.png</file>
+        <file>assets/MUSIC/streamingIcon.png</file>
+        <file>assets/NAVIGATION/3DMap.jpg</file>
+    </qresource>
+</RCC>
