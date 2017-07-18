@@ -2,7 +2,13 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 
 /*
-  TODO Favorites button with suggestion
+  TODO Halbkreis mit Favoriten um Favoriten Button
+ Highlighting was sich durchdreht
+ Keine Animation fürs wechseln der Seiten
+ Besser Icons --> weniger Overload / Bilder
+ Autonom weg
+ Schrift an der Seite nach oben für Menüführung
+ Menü Bar weiter runter
   */
 
 Window {
@@ -14,22 +20,27 @@ Window {
     property int iconWidth: 210
     property int iconHeight: 210
     property int distanceBetweenIcons: 30
-    property int increaseValue: 35
+    property int increaseValue: 60
+    property int moveXAway: 40
+    property bool global: true
 
     property string previousState
+
+    Item {
+        anchors.fill: parent
+        focus: true
+        Keys.onPressed: {
+            if (event.key == Qt.Key_Left) {
+                console.log("move left");
+                event.accepted = true;
+            }
+        }
+    }
 
     Image {         // BACKGROUND IMAGE WITH STARS
         id: background
         source: "assets/background.png"
         anchors.fill: parent
-    }
-    Image {         // ANIMATION IMAGE WHICH SLIDES OVER SCREEN
-        id: wisherNextScreen
-        source:"assets/wisherScreens.png"
-        height: root.height - 120
-        width: 30
-        x: root.width
-        y: -22
     }
     Rectangle {     // STATE MACHINE RECTANGLE
         id:stateMachine
@@ -37,7 +48,12 @@ Window {
             State {     // DEFAULT
                 name: "DEFAULT"
                 PropertyChanges {
-                    target: wisherNextScreen
+                    target: shoppingScreen
+                    visible: false
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: shoppingText
                     visible: false
                 }
                 PropertyChanges {
@@ -357,7 +373,6 @@ Window {
         //        onStateChanged: {
         //            letDefaultScreenDissapear.start()
         //            setHoverEnabledFalse()
-        //            wisherScreens.start()
         //            showingProperText.start()
         //        }
     }
@@ -365,9 +380,9 @@ Window {
     // DEFAULT SCREEN CONTAINS ALL ICONS
     Rectangle {
         id: defaultScreen
-        width: root.width - 250
+        width: root.width - defaultScreen.x
         height: menuBar.y
-        x: 250
+        x: 220
         color:"transparent"
         property bool check: true
         Image{      // OFFICE ICON
@@ -390,6 +405,36 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height -= moveXAway
+                            connectivityIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
+
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -397,12 +442,41 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
+
                     showingProperText.start()
                     stateMachine.state = "OFFICE"
                 }
@@ -428,6 +502,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -435,12 +538,41 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
+
                     stateMachine.state = "CONNECTIVITY"
                     showingProperText.start()
                 }
@@ -466,6 +598,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height -= moveXAway
+                            connectivityIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -473,12 +634,40 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
                     stateMachine.state = "MUSIC"
                     showingProperText.start()
                 }
@@ -504,6 +693,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height -= moveXAway
+                            connectivityIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -511,12 +729,40 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
                     stateMachine.state = "INTERNET"
                     showingProperText.start()
                 }
@@ -542,6 +788,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height -= moveXAway
+                            connectivityIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -549,12 +824,41 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
+
                     stateMachine.state = "SMARTPHONE"
                     showingProperText.start()
                 }
@@ -580,6 +884,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height-= moveXAway
+                            connectivityIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -587,12 +920,41 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
+
                     stateMachine.state = "SHAREDSERVICES"
                     showingProperText.start()
                 }
@@ -618,6 +980,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            navigationIcon.width -= moveXAway
+                            navigationIcon.height -= moveXAway
+                            navigationIcon.x += moveXAway/2
+
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height -= moveXAway
+                            connectivityIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -625,12 +1016,41 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            navigationIcon.width += moveXAway
+                            navigationIcon.height += moveXAway
+                            navigationIcon.x -= moveXAway/2
+
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
+
                     stateMachine.state = "CARSETTINGS"
                     showingProperText.start()
                 }
@@ -656,6 +1076,35 @@ Window {
                         parent.y -= increaseValue/2
                         parent.opacity = 1
                         defaultScreen.check = false
+                        if(global){
+                            officeIcon.width -= moveXAway
+                            officeIcon.height -= moveXAway
+                            officeIcon.x += moveXAway/2
+
+                            musicIcon.width -= moveXAway
+                            musicIcon.height -= moveXAway
+                            musicIcon.x += moveXAway/2
+
+                            internetIcon.width -= moveXAway
+                            internetIcon.height -= moveXAway
+                            internetIcon.x += moveXAway/2
+
+                            smartphoneIcon.width -= moveXAway
+                            smartphoneIcon.height -= moveXAway
+                            smartphoneIcon.x += moveXAway/2
+
+                            sharedServicesIcon.width -= moveXAway
+                            sharedServicesIcon.height-= moveXAway
+                            sharedServicesIcon.x += moveXAway/2
+
+                            connectivityIcon.width -= moveXAway
+                            connectivityIcon.height -= moveXAway
+                            connectivityIcon.x += moveXAway/2
+
+                            carSettingsIcon.width -= moveXAway
+                            carSettingsIcon.height -= moveXAway
+                            carSettingsIcon.x += moveXAway/2
+                        }
                     } else if (defaultScreen.check == false){
                         parent.height = parent.height - increaseValue
                         parent.width = parent.width - increaseValue
@@ -663,12 +1112,41 @@ Window {
                         parent.y += increaseValue/2
                         parent.opacity = 0.8
                         defaultScreen.check = true
+                        if(global){
+                            connectivityIcon.width += moveXAway
+                            connectivityIcon.height += moveXAway
+                            connectivityIcon.x -= moveXAway/2
+
+                            musicIcon.width += moveXAway
+                            musicIcon.height += moveXAway
+                            musicIcon.x -= moveXAway/2
+
+                            internetIcon.width += moveXAway
+                            internetIcon.height += moveXAway
+                            internetIcon.x -= moveXAway/2
+
+                            smartphoneIcon.width += moveXAway
+                            smartphoneIcon.height += moveXAway
+                            smartphoneIcon.x -= moveXAway/2
+
+                            sharedServicesIcon.width += moveXAway
+                            sharedServicesIcon.height += moveXAway
+                            sharedServicesIcon.x -= moveXAway/2
+
+                            officeIcon.width += moveXAway
+                            officeIcon.height += moveXAway
+                            officeIcon.x -= moveXAway/2
+
+                            carSettingsIcon.width += moveXAway
+                            carSettingsIcon.height += moveXAway
+                            carSettingsIcon.x -= moveXAway/2
+                        }
                     }
                 }
                 onClicked: {
                     previousState = stateMachine.state
                     letDefaultScreenDissapear.start()
-                    wisherScreens.start()
+
                     stateMachine.state = "NAVIGATION"
                     showingProperText.start()
                 }
@@ -681,9 +1159,9 @@ Window {
         id: officeScreen
         visible: false
         color: "transparent"
-        x: 250
-        width: defaultScreen.width
-        height: defaultScreen.height
+        x: defaultScreen.x
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         property bool check: true
         Image{      // BANKING ICON
             id:bankingIcon
@@ -944,9 +1422,9 @@ Window {
         id: carSettingsScreen
         visible: false
         color: "transparent"
-        x: 250
-        width: defaultScreen.width
-        height: defaultScreen.height
+        x: defaultScreen.x
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         property bool check: true
         Image{      // AMG ICON
             id:amgIcon
@@ -1193,9 +1671,9 @@ Window {
         id: connectivityScreen
         visible: false
         color: "transparent"
-        x: 250
-        width: defaultScreen.width
-        height: defaultScreen.height
+        x: defaultScreen.x
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         property bool check: true
         Image{      // CLOUD ICON
             id: cloudIcon
@@ -1331,10 +1809,12 @@ Window {
                         connectivityScreen.check = true
                     }
                 }
-                //                onClicked: {
-                //                    previousState = stateMachine.state
-                //                    stateMachine.state = "OFFICE"
-                //                }
+                onClicked: {
+                    previousState = stateMachine.state
+                    connectivityScreen.visible = false
+                    shoppingScreen.visible = true // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    shoppingText.visible = true
+                }
             }
         }
         Image{      // SOCIAL MEDIA ICON
@@ -1575,9 +2055,9 @@ Window {
         id: musicScreen
         visible: false
         color: "transparent"
-        x: 250
-        width: defaultScreen.width
-        height: defaultScreen.height
+        x: defaultScreen.x
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         property bool check: true
         Image{      // EQUALIZER ICON
             id: equalizerIcon2
@@ -1789,9 +2269,9 @@ Window {
         id: sharedServicesScreen
         visible: false
         color: "transparent"
-        x: 250
-        width: defaultScreen.width
-        height: defaultScreen.height
+        x: defaultScreen.x
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         property bool check: true
         Image{      // FOOD ICON
             id: foodIcon
@@ -2001,9 +2481,9 @@ Window {
         id: navigationScreen
         visible: false
         color: "transparent"
-        x: 105
-        width: root.width - navigationScreen.x
-        height: defaultScreen.height
+        x: 160
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         property bool check: true
         Image{      // MAP PICTURE
             id: mapPicture
@@ -2076,9 +2556,9 @@ Window {
         id: internetScreen
         visible: false
         color: "transparent"
-        x: 105
-        width: root.width - internetScreen.x
-        height: defaultScreen.height
+        x: 135
+        width: root.width - defaultScreen.x
+        height: menuBar.y
         Image{      // INTERNET PICTURE
             id: internetPicture
             width: internetScreen.width
@@ -2090,14 +2570,164 @@ Window {
         id: smartphoneScreen
         visible: false
         color: "transparent"
-        x: 275
-        y: 80
-        width: defaultScreen.width - 125
-        height: defaultScreen.height - 90
+        x: 245
+        y: 5
+        width: root.width - defaultScreen.x - 50
+        height: menuBar.y - 20
         Image{      // MIRROR LINK PICTURE
             id: smartphonePicture
             anchors.fill: parent
             source: "assets/mirrorLink.jpg"
+        }
+    }
+    //SUBSCREENS
+    Rectangle {     // Shopping SCREEN
+        id: shoppingScreen
+        visible: false
+        color: "transparent"
+        x: 250
+        width: root.width - defaultScreen.x
+        height: menuBar.y
+        property bool check: true
+        Image{      // GROCERY ICON
+            id: groceryShoppingIcon
+            opacity: 0.8
+            width: iconWidth
+            height: iconHeight
+            x: (shoppingScreen.x - iconWidth*1.5) + iconWidth
+            y: shoppingScreen.height / 2 - iconHeight/2
+            source: "assets/CONNECTIVITY/GroceryIcon.png"
+            MouseArea {                 // highlights the hovered/ current icon
+                anchors.fill: parent
+                id: groceryMouse
+                hoverEnabled: true
+                onHoveredChanged: {
+                    if(shoppingScreen.check == true){
+                        parent.height = parent.height + increaseValue
+                        parent.width = parent.width + increaseValue
+                        parent.x -= increaseValue/2
+                        parent.y -= increaseValue/2
+                        parent.opacity = 1
+                        shoppingScreen.check = false
+                    } else if (shoppingScreen.check == false){
+                        parent.height = parent.height - increaseValue
+                        parent.width = parent.width - increaseValue
+                        parent.x += increaseValue/2
+                        parent.y += increaseValue/2
+                        parent.opacity = 0.8
+                        shoppingScreen.check = true
+                    }
+                }
+                //                onClicked: {
+                //                    previousState = stateMachine.state
+                //                    stateMachine.state = "OFFICE"
+                //                }
+            }
+        }
+        Image{      // CLOTHES ICON
+            id: clothesShoppingIcon
+            opacity: 0.8
+            width: iconWidth
+            height: iconHeight
+            x: (shoppingScreen.x - iconWidth*1.5) + 2*iconWidth + distanceBetweenIcons
+            y: shoppingScreen.height / 2 - 1.25*iconHeight
+            source: "assets/CONNECTIVITY/clothesIcon.png"
+            MouseArea {                 // highlights the hovered/ current icon
+                anchors.fill: parent
+                id: clothesMouse
+                hoverEnabled: true
+                onHoveredChanged: {
+                    if(shoppingScreen.check == true){
+                        parent.height = parent.height + increaseValue
+                        parent.width = parent.width + increaseValue
+                        parent.x -= increaseValue/2
+                        parent.y -= increaseValue/2
+                        parent.opacity = 1
+                        shoppingScreen.check = false
+                    } else if (shoppingScreen.check == false){
+                        parent.height = parent.height - increaseValue
+                        parent.width = parent.width - increaseValue
+                        parent.x += increaseValue/2
+                        parent.y += increaseValue/2
+                        parent.opacity = 0.8
+                        shoppingScreen.check = true
+                    }
+                }
+                //                onClicked: {
+                //                    previousState = stateMachine.state
+                //                    stateMachine.state = "OFFICE"
+                //                }
+            }
+        }
+        Image{      // CAR PARTS ICON
+            id: carpartsShoppingIcon
+            opacity: 0.8
+            width: iconWidth
+            height: iconHeight
+            x: (shoppingScreen.x - iconWidth*1.5) + 3*iconWidth + 2*distanceBetweenIcons
+            y: shoppingScreen.height / 2 - iconHeight/2
+            source: "assets/CONNECTIVITY/carPartsIcon.png"
+            MouseArea {                 // highlights the hovered/ current icon
+                anchors.fill: parent
+                id: carpartsMouse
+                hoverEnabled: true
+                onHoveredChanged: {
+                    if(shoppingScreen.check == true){
+                        parent.height = parent.height + increaseValue
+                        parent.width = parent.width + increaseValue
+                        parent.x -= increaseValue/2
+                        parent.y -= increaseValue/2
+                        parent.opacity = 1
+                        shoppingScreen.check = false
+                    } else if (shoppingScreen.check == false){
+                        parent.height = parent.height - increaseValue
+                        parent.width = parent.width - increaseValue
+                        parent.x += increaseValue/2
+                        parent.y += increaseValue/2
+                        parent.opacity = 0.8
+                        shoppingScreen.check = true
+                    }
+                }
+                //                onClicked: {
+                //                    previousState = stateMachine.state
+                //                    stateMachine.state = "OFFICE"
+                //                }
+            }
+        }
+        Image{      // AMAZON ICON
+            id: amazonIcon
+            opacity: 0.8
+            width: iconWidth
+            height: iconHeight
+            x: (shoppingScreen.x - iconWidth*1.5) + 2*iconWidth + distanceBetweenIcons
+            y: shoppingScreen.height / 2 + 100
+            source: "assets/CONNECTIVITY/AMAZONiCON.png"
+            MouseArea {                 // highlights the hovered/ current icon
+                anchors.fill: parent
+                id: amazonMouse
+                hoverEnabled: true
+                onHoveredChanged: {
+                    if(shoppingScreen.check == true){
+                        parent.height = parent.height + increaseValue
+                        parent.width = parent.width + increaseValue
+                        parent.x -= increaseValue/2
+                        parent.y -= increaseValue/2
+                        parent.opacity = 1
+                        shoppingScreen.check = false
+                    } else if (shoppingScreen.check == false){
+                        parent.height = parent.height - increaseValue
+                        parent.width = parent.width - increaseValue
+                        parent.x += increaseValue/2
+                        parent.y += increaseValue/2
+                        parent.opacity = 0.8
+                        shoppingScreen.check = true
+                    }
+                }
+                //                onClicked: {
+                //                    previousState = stateMachine.state
+                //                    stateMachine.state = "OFFICE"
+                //                }
+            }
         }
     }
 
@@ -2105,7 +2735,7 @@ Window {
     Rectangle { //OFFICE
         id: officeText
         x: 70
-        y: 210
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2113,12 +2743,11 @@ Window {
             color: "#ff944d"
             text: "OFFICE"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // CONNECTIVITY
         id: connectivityText
         x: 70
-        y: 180
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2126,12 +2755,11 @@ Window {
             color: "#ff944d"
             text: "CONNECTIVITY"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // MUSIC
         id: musicText
         x: 70
-        y: 210
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2139,12 +2767,11 @@ Window {
             color: "#ff944d"
             text: "MUSIC"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // INTERNET
         id: internetText
         x: 70
-        y: 210
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2152,12 +2779,11 @@ Window {
             color: "#ff944d"
             text: "INTERNET"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // SMARTPHONE
         id: smartphoneText
         x: 70
-        y: 180
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2165,12 +2791,11 @@ Window {
             color: "#ff944d"
             text: "SMARTPHONE"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // SHARED SERVICES
         id: sharedText
         x: 70
-        y: 160
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2178,12 +2803,11 @@ Window {
             color: "#ff944d"
             text: "SHARED SERVICES"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // CAR SETTINGS
         id: carsettingsText
         x: 70
-        y: 180
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2191,12 +2815,11 @@ Window {
             color: "#ff944d"
             text: "CAR SETTINGS"
         }
-        transform: Rotation { angle: 90}
     }
     Rectangle { // NAVIGATION
         id: navigationText
         x: 70
-        y: 200
+        y: 10
         visible: false
         Text {
             font.family: "Century Gothic"
@@ -2204,7 +2827,18 @@ Window {
             color: "#ff944d"
             text: "NAVIGATION"
         }
-        transform: Rotation { angle: 90}
+    }
+    Rectangle { // SHOPPING
+        id: shoppingText
+        x: 70
+        y: 100
+        visible: false
+        Text {
+            font.family: "Century Gothic"
+            font.pixelSize: 45
+            color: "#ff944d"
+            text: "SHOPPING"
+        }
     }
 
     Image {         // SEPARATOR BETWEEN BUTTONS AND ICONS
@@ -2212,7 +2846,7 @@ Window {
         source:"assets/menuBarSeparator.png"
         width: root.width
         height: 20
-        y: root.height - 170
+        y: root.height/1.2
     }
     Image {         // BACK BUTTON
         id: backButton
@@ -2220,7 +2854,7 @@ Window {
         source:"assets/backButton.png"
         width: iconWidth/2
         height: iconHeight/2
-        x: 300
+        x: 500
         y: menuBar.y + 40
         MouseArea {
             anchors.fill: parent
@@ -2251,31 +2885,77 @@ Window {
         source:"assets/favoritesIcon.png"
         width: iconWidth/2
         height: iconHeight/2
-        x: 500
+        x: 700
         y: menuBar.y + 40
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
             onHoveredChanged: {
                 if(defaultScreen.check == true){
-                    favoritesSuggestion.visible = true;
+                    parent.height = parent.height + increaseValue/2
+                    parent.width = parent.width + increaseValue/2
+                    parent.x -= increaseValue/4
+                    parent.y -= increaseValue/4
+                    parent.opacity = 1
                     defaultScreen.check = false
+                    rounded1.visible = true
+                    rounded2.visible = true
+                    rounded3.visible = true
                 } else if (defaultScreen.check == false){
-                    favoritesSuggestion.visible = false;
+                    parent.height = parent.height - increaseValue/2
+                    parent.width = parent.width - increaseValue/2
+                    parent.x += increaseValue/4
+                    parent.y += increaseValue/4
+                    parent.opacity = 0.9
                     defaultScreen.check = true
+                    rounded1.visible = false
+                    rounded2.visible = false
+                    rounded3.visible = false
                 }
             }
         }
     }
-    Image {
-        id: favoritesSuggestion
-        opacity: 0.9
-        source:"assets/favoritesSuggestion.png"
-        width: iconWidth * 1.5
-        height: iconHeight/ 1.7
+    Rectangle{
+        id: rounded1
+        width:iconWidth/3
+        height: iconHeight/3
+        radius: 50
+        x: 635
+        y: menuBar.y
         visible: false
-        x: favoritesButton.x - favoritesButton.width - 2 * distanceBetweenIcons
-        y: favoritesButton.y - favoritesButton.height - distanceBetweenIcons
+        color: "transparent"
+        Image{
+            anchors.fill: parent
+            source: "assets/MUSIC/spotifyIcon.png"
+        }
+    }
+    Rectangle{
+        id: rounded2
+        width:iconWidth/3
+        height: iconHeight/3
+        radius: 50
+        x: 630 + rounded1.width + 20
+        y: menuBar.y - 40
+        visible: false
+        color: "transparent"
+        Image{
+            anchors.fill: parent
+            source: "assets/CAR SETTINGS/amgModeIcon.png"
+        }
+    }
+    Rectangle{
+        id: rounded3
+        width:iconWidth/3
+        height: iconHeight/3
+        radius: 50
+        x: 630 + 2*rounded1.width + 40
+        y: menuBar.y
+        visible: false
+        color: "transparent"
+        Image{
+            anchors.fill: parent
+            source: "assets/OFFICE/emailIcon.png"
+        }
     }
 
     Image {         // HOME BUTTON
@@ -2284,7 +2964,7 @@ Window {
         source:"assets/homeButton.png"
         width: iconWidth/2
         height: iconHeight/2
-        x: 700
+        x: 900
         y: menuBar.y + 40
         MouseArea {
             anchors.fill: parent
@@ -2314,36 +2994,6 @@ Window {
             }
         }
     }
-    Image {         // AUTONOMOUS BUTTON
-        id: autonomousButton
-        opacity: 0.9
-        source:"assets/autonomousButton.png"
-        width: iconWidth/2
-        height: iconHeight/2
-        x: 900
-        y: menuBar.y + 40
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onHoveredChanged: {
-                if(defaultScreen.check == true){
-                    parent.height = parent.height + increaseValue/2
-                    parent.width = parent.width + increaseValue/2
-                    parent.x -= increaseValue/4
-                    parent.y -= increaseValue/4
-                    parent.opacity = 1
-                    defaultScreen.check = false
-                } else if (defaultScreen.check == false){
-                    parent.height = parent.height - increaseValue/2
-                    parent.width = parent.width - increaseValue/2
-                    parent.x += increaseValue/4
-                    parent.y += increaseValue/4
-                    parent.opacity = 0.9
-                    defaultScreen.check = true
-                }
-            }
-        }
-    }
 
     Timer { // TIMER THAT THE TEXT IS DISPLAYED AT THE RIGHT TIME
         id: showingProperText
@@ -2362,7 +3012,7 @@ Window {
     }
     Timer { // TIMER THAT THE TEXT IS DISPLAYED AT THE RIGHT TIME
         id: showingProperText2
-        interval: 2100
+        interval: 200
         onTriggered: setProperText()
     }
     function setProperIcons() { // SETS THE ICONS FALSE AND TRUE AGAIN THAT THEY ARE VISIBLE
@@ -2400,6 +3050,9 @@ Window {
         connectivityIcon.visible = true
         sharedServicesIcon.opacity = 1
         sharedServicesIcon.visible = true
+
+        shoppingScreen.visible = false
+        shoppingScreen.opacity = 0
     }
     function setProperText() {  // SETS THE TEXT FALSE AND TRUE AGAIN
         if(stateMachine.state == "MUSIC"){
@@ -2508,49 +3161,23 @@ Window {
         }
     }
 
-    NumberAnimation {       // ANIMATES THE WISHER OVER THE SCREEN
-        id: wisherScreens
-        target: wisherNextScreen
-        property: "x"
-        duration: 2500
-        easing.type: Easing.InOutQuad
-        from: root.width
-        to: 65
-    }
-    ParallelAnimation{      // ANIMATES THE OPACITY AND X PROPERTY OF THE ICONS
-        id: letDefaultScreenDissapear
-        NumberAnimation {
-            target: defaultScreen
-            properties: "x"
-            duration: 3000
-            easing.type: Easing.InOutQuad
-            to: - defaultScreen.width
-            from: defaultScreen.x
-        }
-        NumberAnimation {
+
+
+   NumberAnimation { // ANIMATES THE OPACITY AND X PROPERTY OF THE ICONS
+            id: letDefaultScreenDissapear
             target: defaultScreen
             properties: "opacity"
-            duration: 1500
+            duration: 250
             from: 1
-            to: 0.3
+            to: 0
         }
-    }
-    ParallelAnimation{      // ANIMATION LETS THE ICONS APPEAR
-        id: letDefaultScreenAppear
-        NumberAnimation {
-            target: defaultScreen
-            properties: "x"
-            duration: 1500
-            easing.type: Easing.InOutQuad
-            from: - defaultScreen.width
-            to: defaultScreen.x + 1.2 * defaultScreen.width
-        }
-        NumberAnimation {
+   NumberAnimation {  // ANIMATION LETS THE ICONS APPEAR
+            id: letDefaultScreenAppear
             target: defaultScreen
             properties: "opacity"
-            duration: 1500
-            from: 0.3
-            to: 0.8
+            duration: 250
+            from: 0
+            to: 0.9
         }
-    }
+
 }
